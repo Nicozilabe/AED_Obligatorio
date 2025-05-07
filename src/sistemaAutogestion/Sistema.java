@@ -10,6 +10,8 @@ import tads.Nodo;
 
 public class Sistema implements IObligatorio {
 
+
+    //prueba
     private ListaO<Cliente> Clientes;
     private ListaO<Evento> Eventos;
     private ListaN<Sala> Salas;
