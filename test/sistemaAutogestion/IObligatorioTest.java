@@ -136,7 +136,49 @@ public class IObligatorioTest {
 
     @Test
     public void testEsSalaOptima() {
-        //Completar para primera entrega
+        String[][] vistaSala = {
+            {"#", "#", "#", "#", "#", "#", "#"},
+            {"#", "#", "X", "X", "X", "X", "#"},
+            {"#", "O", "O", "X", "X", "X", "#"},
+            {"#", "O", "O", "O", "O", "X", "#"},
+            {"#", "O", "O", "X", "O", "O", "#"},
+            {"#", "O", "O", "O", "X", "O", "#"},
+            {"#", "X", "X", "O", "O", "O", "O"},
+            {"#", "X", "X", "X", "O", "O", "X"},
+            {"#", "X", "X", "O", "X", "X", "#"},
+            {"#", "X", "X", "O", "X", "X", "#"},
+            {"#", "#", "#", "O", "#", "#", "#"},
+            {"#", "#", "#", "O", "#", "#", "#"}
+            };
+    
+    
+        Retorno r = miSistema.esSalaOptima(vistaSala);
+            assertEquals(Retorno.Resultado.OK, r.resultado);
+            assertEquals("No es óptimo", r.valorString);
+            
+            
+            
+        String[][] vistaSala2 = {
+        {"#", "#", "#", "#", "#", "#", "#"},
+        {"#", "#", "X", "X", "X", "X", "#"},
+        {"#", "O", "O", "X", "X", "X", "#"},
+        {"#", "O", "O", "O", "O", "X", "#"},
+        {"#", "O", "O", "X", "O", "X", "#"},
+        {"#", "O", "O", "O", "O", "O", "#"},
+        {"#", "O", "X", "O", "O", "O", "O"},
+        {"#", "O", "X", "X", "O", "O", "X"},
+        {"#", "X", "X", "O", "X", "O", "#"},
+        {"#", "X", "X", "O", "X", "O", "#"},
+        {"#", "#", "#", "O", "#", "#", "#"},
+        {"#", "#", "#", "O", "#", "#", "#"}
+    	};
+
+
+	r = miSistema.esSalaOptima(vistaSala2);
+    	assertEquals(Retorno.Resultado.OK, r.resultado);
+    	assertEquals("Es óptimo", r.valorString);
+
+    
     }
 
 }

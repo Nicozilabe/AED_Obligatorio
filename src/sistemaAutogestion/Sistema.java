@@ -180,7 +180,41 @@ public class Sistema implements IObligatorio {
 
     @Override
     public Retorno esSalaOptima(String[][] vistaSala) {
-        return Retorno.noImplementada();
+        Integer cantColsOptima = 0;
+        for (int c = 0; c < vistaSala[0].length; c++) {   
+             Integer cantOcupadosConsecutivos = 0;
+             Integer cantLibres = 0;  
+             Integer cantOcupadosConsecutivosAux = 0;  
+
+            for (int f = 0; f < vistaSala.length; f++) {       
+                if(!(vistaSala[f][c].equals("#"))){
+                    if(vistaSala[f][c].equals("X")){
+                        cantLibres++;
+                        if(cantOcupadosConsecutivosAux > cantOcupadosConsecutivos){
+                            cantOcupadosConsecutivos = cantOcupadosConsecutivosAux;
+                            cantOcupadosConsecutivosAux= 0;
+                        }
+                    }
+                    if(vistaSala[f][c].equals("O")){
+
+                        cantOcupadosConsecutivosAux++;
+                    }
+                }
+            }
+            if(cantOcupadosConsecutivosAux > cantOcupadosConsecutivos){
+                cantOcupadosConsecutivos = cantOcupadosConsecutivosAux;
+            }
+            if(cantOcupadosConsecutivos > cantLibres){
+                cantColsOptima++;
+            }
+
+        }
+        if(cantColsOptima > 1){
+            return Retorno.ok("Es óptimo");
+        }else{
+            return Retorno.ok("No es óptimo");
+        }
+        
     }
 
     @Override
