@@ -48,7 +48,7 @@ public int compareTo(Sala o) {
 }
 
 public String toString(){
-    return Nombre + "-" + Capacidad + "#";
+    return Nombre + "-" + Capacidad;
 }
 
 }

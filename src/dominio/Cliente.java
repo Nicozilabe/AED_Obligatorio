@@ -23,7 +23,7 @@ public class Cliente implements Comparable<Cliente> {
     }
 
     public String toString(){
-        return Cedula + "-" + Nombre + "#";
+        return Cedula + "-" + Nombre;
     }
 
     @Override

@@ -187,6 +187,7 @@ public class ListaO<T extends Comparable<T>> implements IListaO<T>{
     }
 
     // eviro recorrer doble
+    @Override
     public boolean agregarDatoConfirmado(T x) {
         Nodo<T> nuevo = new Nodo<>(x);
         if (inicio == null || x.compareTo(inicio.getDato()) < 0) {

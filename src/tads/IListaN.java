@@ -15,5 +15,7 @@ public interface IListaN<T extends Comparable<T>> extends ILista<T>{
     public void agregarFinal (T x); 
      
     public void agregarInicio (T x);
+    
+    public String mostrarInverso();
 
 }

@@ -10,8 +10,7 @@ import tads.Nodo;
 
 public class Sistema implements IObligatorio {
 
-
-    //prueba
+    // prueba
     private ListaO<Cliente> Clientes;
     private ListaO<Evento> Eventos;
     private ListaN<Sala> Salas;
@@ -62,16 +61,18 @@ public class Sistema implements IObligatorio {
     @Override
     public Retorno registrarEvento(String codigo, String descripcion, int aforoNecesario, LocalDate fecha) {
 
-        Evento e = new Evento(codigo, descripcion, aforoNecesario, fecha);
-
         if (aforoNecesario <= 0) {
             return Retorno.error2();
         }
-       
+
+        Evento e = new Evento(codigo, descripcion, aforoNecesario, fecha);
+        
         if (Eventos.existeElemento(e)) {
             return Retorno.error1();
         }
+        
         boolean fechaDisponible = false;
+        
         if (!Salas.esVacia()) {
             Nodo<Sala> actual = Salas.getNodoInicio();
             while (!fechaDisponible && actual != null) {
@@ -112,7 +113,7 @@ public class Sistema implements IObligatorio {
 
     @Override
     public Retorno registrarCliente(String cedula, String nombre) {
-        
+
         boolean ciCorrecta = true;
         if (cedula == null || cedula.isEmpty() || cedula.length() != 8) {
             ciCorrecta = false;
@@ -129,10 +130,11 @@ public class Sistema implements IObligatorio {
         // if(Clientes.existeElemento(c)){
         // return Retorno.error2();
         // }
-        // AgregardatoConfirmado verifica si el dato ya existe en la lista, nos ahorramos 1 recorrida.
+        // AgregardatoConfirmado verifica si el dato ya existe en la lista, nos
+        // ahorramos 1 recorrida.
         if (Clientes.agregarDatoConfirmado(c)) {
             return Retorno.ok();
-        }else{
+        } else {
             return Retorno.error2();
         }
     }
@@ -159,17 +161,23 @@ public class Sistema implements IObligatorio {
 
     @Override
     public Retorno listarSalas() {
-        return Retorno.noImplementada();
+        String ret =Salas.mostrarInverso();
+        return Retorno.ok(ret);
     }
 
     @Override
     public Retorno listarEventos() {
-        return Retorno.noImplementada();
+        String ret =Eventos.mostrar();
+        Retorno retorno = Retorno.ok(ret);
+        return retorno;
+        
     }
 
     @Override
     public Retorno listarClientes() {
-        return Retorno.noImplementada();
+        String ret = Clientes.mostrar();
+        Retorno retorno =  Retorno.ok("hola");
+        return retorno;
     }
 
     @Override

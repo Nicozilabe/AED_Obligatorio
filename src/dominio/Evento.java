@@ -50,7 +50,7 @@ public class Evento implements Comparable <Evento> {
 
     public String toString(){
         return Codigo + "-" + Descripcion + "-" + Sala + "-" +
-               EntradasDisponibles + "-" + EntradasVendidas + "#";
+               EntradasDisponibles + "-" + EntradasVendidas;
     }
 
     @Override

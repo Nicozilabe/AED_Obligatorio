@@ -13,5 +13,5 @@ public interface IListaO<T extends Comparable<T>> extends ILista<T>{
    
     public void agregarDato (T x); 
      
-
+    public boolean agregarDatoConfirmado(T x);
 }

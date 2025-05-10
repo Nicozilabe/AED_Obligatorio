@@ -224,4 +224,20 @@ public class ListaN<T extends Comparable<T>> implements IListaN<T> {
         }
     }
 
+    @Override
+    public String mostrarInverso(){
+        Nodo mostrar = inicio;
+        String res = "";
+        while (mostrar != null) {
+            if(mostrar.equals(inicio)){
+                res = mostrar.getDato().toString();
+            }else{
+                res = mostrar.getDato() + "#" + res;
+            }
+            mostrar = mostrar.getSiguiente();
+        }
+
+        return res;
+    }
+
 }
