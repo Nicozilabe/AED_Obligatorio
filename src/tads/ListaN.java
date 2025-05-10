@@ -164,6 +164,7 @@ public class ListaN<T extends Comparable<T>> implements IListaN<T> {
 
             if (inicio.getDato().equals(x)) {
                 inicio = inicio.getSiguiente();
+                cantElementos--;
                 return true;
             } else {
                 Nodo actual = inicio;
@@ -174,6 +175,7 @@ public class ListaN<T extends Comparable<T>> implements IListaN<T> {
                     Nodo aBorrar = actual.getSiguiente();
                     actual.setSiguiente(aBorrar.getSiguiente());
                     aBorrar.setSiguiente(null);
+                    cantElementos--;
                     return true;
                 }
             }
@@ -209,6 +211,7 @@ public class ListaN<T extends Comparable<T>> implements IListaN<T> {
 
             if (inicio.getDato() == x) {
                 inicio = inicio.getSiguiente();
+                cantElementos--;
             } else {
                 Nodo actual = inicio;
                 while (actual.getSiguiente() != null && !actual.getSiguiente().getDato().equals(x)) {
@@ -218,6 +221,7 @@ public class ListaN<T extends Comparable<T>> implements IListaN<T> {
                     Nodo aBorrar = actual.getSiguiente();
                     actual.setSiguiente(aBorrar.getSiguiente());
                     aBorrar.setSiguiente(null);
+                    cantElementos--;    
 
                 }
             }
