@@ -28,6 +28,7 @@ public class Evento implements Comparable <Evento> {
         Descripcion =descripcion;
         AforoNecesario = aforoNecesario;
         Fecha = fecha;
+        EntradasVendidas = new ListaN<>();
     }
     public LocalDate getFecha(){
         return Fecha;
@@ -49,8 +50,7 @@ public class Evento implements Comparable <Evento> {
     }
 
     public String toString(){
-        return Codigo + "-" + Descripcion + "-" + Sala + "-" +
-               EntradasDisponibles + "-" + EntradasVendidas;
+        return Codigo + "-" + Descripcion + "-" + Sala + "-"  + EntradasVendidas.cantidadElementos();
     }
 
     @Override
