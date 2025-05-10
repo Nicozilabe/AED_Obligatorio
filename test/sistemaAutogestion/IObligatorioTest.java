@@ -109,12 +109,29 @@ public class IObligatorioTest {
 
     @Test
     public void testListarEventos() {
-        //Completar para primera entrega
+        Retorno r = miSistema.registrarSala("Sala Roja", 40);
+        assertEquals(Retorno.ok().resultado, r.resultado);
+
+        r = miSistema.registrarEvento("CUC22", "Comidazul", 5, LocalDate.of(1950, 2, 10));
+        assertEquals(Retorno.ok().resultado, r.resultado);
+        r = miSistema.registrarEvento("TKURA", "Cos", 8, LocalDate.of(1995, 5, 7));
+        assertEquals(Retorno.ok().resultado, r.resultado);
+        r = miSistema.registrarEvento("P93DF", "wdqqddq", 23, LocalDate.of(1977, 5, 9));
+        assertEquals(Retorno.ok().resultado, r.resultado);
+        r = miSistema.listarEventos();
+        assertEquals(Retorno.Resultado.OK, r.resultado);
+        assertEquals("CUC22-Comidazul-Sala Roja-40-0#P93DF-wdqqddq-Sala Roja-40-0#TKURA-Cos-Sala Roja-40-0", r.valorString);
     }
 
     @Test
     public void testListarClientes() {
-        //Completar para primera entrega
+            Retorno r = miSistema.registrarCliente("44444444", "Mariana");
+            assertEquals(Retorno.ok().resultado, r.resultado);
+            r = miSistema.registrarCliente("22222222", "Rodrigo");
+            assertEquals(Retorno.ok().resultado, r.resultado);
+            r = miSistema.listarClientes();
+            assertEquals(Retorno.Resultado.OK, r.resultado);
+            assertEquals("22222222-Rodrigo#44444444-Mariana", r.valorString);
     }
 
     @Test
