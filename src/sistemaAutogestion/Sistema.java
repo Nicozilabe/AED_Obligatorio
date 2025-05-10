@@ -168,16 +168,14 @@ public class Sistema implements IObligatorio {
     @Override
     public Retorno listarEventos() {
         String ret =Eventos.mostrar();
-        Retorno retorno = Retorno.ok(ret);
-        return retorno;
+        return Retorno.ok(ret);
         
     }
 
     @Override
     public Retorno listarClientes() {
         String ret = Clientes.mostrar();
-        Retorno retorno =  Retorno.ok("hola");
-        return retorno;
+        return Retorno.ok(ret);
     }
 
     @Override
