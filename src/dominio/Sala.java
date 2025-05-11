@@ -34,7 +34,9 @@ public class Sala implements Comparable<Sala> {
         Eventos.agregarFinal(e);
    }
 
-
+public String getNombre(){
+    return this.Nombre;
+}
    
 @Override
  public boolean equals(Object obj){
