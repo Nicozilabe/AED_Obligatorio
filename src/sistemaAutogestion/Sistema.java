@@ -264,7 +264,16 @@ public class Sistema implements IObligatorio {
 
     @Override
     public Retorno listarEsperaEvento() {
-        return Retorno.noImplementada();
+        String ret = "";
+        if (!Eventos.esVacia()) {
+            Nodo<Evento> actual = Eventos.getNodoInicio();
+            while (actual != null) {
+                Evento e = actual.getDato();
+                ret += e.mostrarCola();
+                actual = actual.getSiguiente();
+            }
+        }
+        return Retorno.ok(ret);
     }
 
     @Override
