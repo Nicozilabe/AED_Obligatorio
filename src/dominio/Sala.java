@@ -38,6 +38,13 @@ public String getNombre(){
     return this.Nombre;
 }
    
+
+
+public void eliminarEvento(Evento e){
+    Eventos.eliminarElemento(e);
+}
+
+//---------------------------------------------------------
 @Override
  public boolean equals(Object obj){
     Sala otra = (Sala) obj;
