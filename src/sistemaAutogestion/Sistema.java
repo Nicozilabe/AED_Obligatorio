@@ -1,12 +1,14 @@
 package sistemaAutogestion;
 
 import dominio.Cliente;
+import dominio.Entrada;
 import dominio.Evento;
 import dominio.Sala;
 import java.time.LocalDate;
 import tads.ListaN;
 import tads.ListaO;
 import tads.Nodo;
+import tads.Pila;
 
 public class Sistema implements IObligatorio {
 
@@ -14,6 +16,7 @@ public class Sistema implements IObligatorio {
     private ListaO<Cliente> Clientes;
     private ListaO<Evento> Eventos;
     private ListaN<Sala> Salas;
+    private Pila<Entrada> EntradasCompradas;
 
     public Sistema() {
         Clientes = new ListaO<>();
@@ -141,7 +144,20 @@ public class Sistema implements IObligatorio {
 
     @Override
     public Retorno comprarEntrada(String cedula, String codigoEvento) {
-        return Retorno.noImplementada();
+        Cliente c = new Cliente(cedula, "");
+        Evento e = new Evento(codigoEvento, "", 0, LocalDate.now());
+        c = Clientes.obtenerElemento(c);
+        e = Eventos.obtenerElemento(e);
+        if (c == null) {
+            return Retorno.error1();
+        }
+        if (e == null) {
+            return Retorno.error2();
+        }
+        Entrada entrada = new Entrada(c, e);
+        e.comprarEntrada(entrada);
+        return Retorno.ok();
+ 
     }
 
     @Override
