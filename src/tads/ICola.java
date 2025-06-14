@@ -10,7 +10,7 @@ package tads;
  */
 public interface ICola<T extends Comparable<T>> {
     
-    public boolean estaVacia();
+    public boolean esVacia();
     public void encolar(T x);
     public T desencolar(); //devuelve el valor y lo quita
     public T frente(); //devuelve el valor pero no lo quita
