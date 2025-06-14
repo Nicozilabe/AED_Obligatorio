@@ -18,10 +18,21 @@ public class Entrada implements Comparable<Entrada>{
         this.evento = evento;
     }
 
+
+    public Cliente getCliente() {
+        return cliente;
+    }
+
     @Override
     public int compareTo(Entrada o) {
         // TODO Auto-generated method stub
         throw new UnsupportedOperationException("Unimplemented method 'compareTo'");
+    }
+
+
+    @Override
+    public String toString() {
+        return evento.toString() + " - " + cliente.toString();
     }
 
     //evaluar propiedad boolean EsValida
