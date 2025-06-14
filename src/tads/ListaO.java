@@ -220,6 +220,19 @@ public class ListaO<T extends Comparable<T>> implements IListaO<T>{
     public Nodo<T> getNodoInicio() {
        return inicio;
     }
+
+    @Override
+    public String mostrarN(int n) {
+        Nodo mostrar = inicio;
+        String res = "";
+        while (mostrar != null && n > 0) {
+            res += mostrar.getDato() + "#";
+            mostrar = mostrar.getSiguiente();
+            n--;
+        }
+
+        return res;
+    }
     
     
 }

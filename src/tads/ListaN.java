@@ -244,4 +244,21 @@ public class ListaN<T extends Comparable<T>> implements IListaN<T> {
         return res;
     }
 
+    @Override
+    public String mostrarN(int n) {
+        
+        Nodo mostrar = inicio;
+        String res = "";
+        while (mostrar != null && n > 0) {
+            res += mostrar.getDato() + "#";
+            mostrar = mostrar.getSiguiente();
+            n--;
+        }
+
+        return res;
+
+    }
+
+
+
 }
