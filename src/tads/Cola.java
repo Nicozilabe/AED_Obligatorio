@@ -14,38 +14,70 @@ public class Cola<T extends Comparable<T>> implements ICola<T> {
     private Integer cantElementos = 0;
 
     @Override
-     public boolean esVacia() {
+    public boolean esVacia() {
         return inicio == null;
     }
 
     @Override
     public void encolar(T x) {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+        Nodo nuevo = new Nodo(x);
+        if (inicio == null) {
+            inicio = nuevo;
+        } else {
+            Nodo actual = inicio;
+            while (actual.getSiguiente() != null) {
+                actual = actual.getSiguiente();
+                cantElementos++;
+            }
+
+            actual.setSiguiente(nuevo);
+
+        }
     }
 
     @Override
     public T desencolar() {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+
+        if (esVacia()) {
+              return null; 
+        }
+       if(inicio.getSiguiente() != null) {
+            T dato = inicio.getDato();
+           inicio = inicio.getSiguiente();
+           cantElementos--;
+           return dato;
+       } else {
+           T dato = inicio.getDato();
+           inicio = null; // La cola queda vacía
+           cantElementos--;
+           return dato;
+       }
+       
     }
 
     @Override
     public T frente() {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+        if (esVacia()) {
+            return null; 
+        }
+        return inicio.getDato(); 
     }
 
     @Override
     public void vaciar() {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+        inicio = null; 
+        cantElementos = 0; 
     }
 
     @Override
     public int cantidadElementos() {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+        return cantElementos;
     }
 
     @Override
     public void mostrar() {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+        throw new UnsupportedOperationException("Not supported yet."); // Generated from
+                                                                       // nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
     }
-    
+
 }
