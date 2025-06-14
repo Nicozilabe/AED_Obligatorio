@@ -8,6 +8,20 @@ package tads;
  *
  * @author nicoz
  */
-public interface IPila {
+public interface IPila<T extends Comparable<T>> {
+    
+    public boolean estaVacia();
+    
+    public void apilar(T dato);
+    
+    public T top(); //devuelve el valor pero no lo quita
+    
+    public T desapilar();
+    
+    public void vaciar();
+    
+    public void mostrar();
+    
+    public int cantidadElementos();
     
 }
