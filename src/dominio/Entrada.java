@@ -13,6 +13,11 @@ public class Entrada implements Comparable<Entrada>{
     private Evento evento;
 
     
+    public Entrada(Cliente cliente, Evento evento) {
+        this.cliente = cliente;
+        this.evento = evento;
+    }
+
     @Override
     public int compareTo(Entrada o) {
         // TODO Auto-generated method stub
