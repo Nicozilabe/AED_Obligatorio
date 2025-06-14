@@ -5,6 +5,8 @@
 package dominio;
 
 import java.time.LocalDate;
+
+import tads.Cola;
 import tads.ListaN;
 
 /**
@@ -20,6 +22,7 @@ public class Evento implements Comparable <Evento> {
     private Sala Sala;
     private Integer EntradasDisponibles;
     public ListaN<Entrada> EntradasVendidas;
+    public Cola<Entrada> ColaEspera; 
 
     //agregar comentarios
     
@@ -36,6 +39,7 @@ public class Evento implements Comparable <Evento> {
 
     public void setEntradasDisponibles(Integer n){
         EntradasDisponibles = n;
+
     }
 
     public void setSala(Sala s){
@@ -51,6 +55,15 @@ public class Evento implements Comparable <Evento> {
 
     public String toString(){
         return Codigo + "-" + Descripcion + "-" + Sala.getNombre() + "-" + (Sala.getCapacidad() - EntradasVendidas.cantidadElementos())  + "-"  + EntradasVendidas.cantidadElementos();
+    }
+
+    public void comprarEntrada(Entrada e){
+        if(EntradasDisponibles > 0){
+            EntradasVendidas.agregarFinal(e);
+            EntradasDisponibles--;
+        }else{
+            ColaEspera.encolar(e);
+        }
     }
 
     @Override
