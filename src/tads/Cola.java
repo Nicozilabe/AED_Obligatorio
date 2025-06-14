@@ -10,9 +10,12 @@ package tads;
  */
 public class Cola<T extends Comparable<T>> implements ICola<T> {
 
+    private Nodo<T> inicio;
+    private Integer cantElementos = 0;
+
     @Override
-    public boolean estaVacia() {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+     public boolean esVacia() {
+        return inicio == null;
     }
 
     @Override
