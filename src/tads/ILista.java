@@ -33,4 +33,6 @@ public interface ILista<T extends Comparable<T>> {
 
     public T obtenerInicio(); 
     public Nodo<T> getNodoInicio();
+
+    public String mostrarN(int n);
 }

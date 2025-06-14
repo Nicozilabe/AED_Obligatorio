@@ -18,4 +18,6 @@ public interface IListaN<T extends Comparable<T>> extends ILista<T>{
     
     public String mostrarInverso();
 
+    
+
 }
