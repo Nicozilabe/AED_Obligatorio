@@ -23,6 +23,7 @@ public class Evento implements Comparable<Evento> {
     private Integer EntradasDisponibles;
     public ListaN<Entrada> EntradasVendidas;
     public Cola<Entrada> ColaEspera;
+    
 
     // agregar comentarios
 
