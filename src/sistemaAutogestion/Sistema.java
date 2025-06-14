@@ -5,6 +5,9 @@ import dominio.Entrada;
 import dominio.Evento;
 import dominio.Sala;
 import java.time.LocalDate;
+
+import org.w3c.dom.events.Event;
+
 import tads.ListaN;
 import tads.ListaO;
 import tads.Nodo;
@@ -162,7 +165,19 @@ public class Sistema implements IObligatorio {
 
     @Override
     public Retorno eliminarEvento(String codigo) {
-        return Retorno.noImplementada();
+        Evento e = new Evento(codigo, "", 0, LocalDate.now());
+        e = Eventos.obtenerElemento(e);
+        if (e == null) {
+            return Retorno.error1();
+        }
+        if (e.getEntradasCantVendidas() > 0) {
+            return Retorno.error2();
+        }
+
+        e.getSala().eliminarEvento(e);
+        Eventos.eliminarElemento(e);
+        return Retorno.ok();
+
     }
 
     @Override
