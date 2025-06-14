@@ -250,7 +250,16 @@ public class Sistema implements IObligatorio {
 
     @Override
     public Retorno listarClientesDeEvento(String código, int n) {
-        return Retorno.noImplementada();
+        Evento e = new Evento(código, "", 0, LocalDate.now());
+        e = Eventos.obtenerElemento(e);
+        if (e == null) {
+            return Retorno.error1();
+        }
+        if(n < 1){
+            return Retorno.error2();
+        }
+        String ret  = e.mostrarNUltclientes(n);
+        return Retorno.ok(ret);
     }
 
     @Override
