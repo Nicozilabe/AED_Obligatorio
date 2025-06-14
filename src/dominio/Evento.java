@@ -8,6 +8,7 @@ import java.time.LocalDate;
 
 import tads.Cola;
 import tads.ListaN;
+import tads.ListaO;
 import tads.Nodo;
 
 /**
@@ -24,6 +25,7 @@ public class Evento implements Comparable<Evento> {
     private Integer EntradasDisponibles;
     public ListaN<Entrada> EntradasVendidas;
     public Cola<Entrada> ColaEspera;
+    public ListaO<Cliente> ListaClientes;
 
 
     // agregar comentarios
@@ -67,6 +69,7 @@ public class Evento implements Comparable<Evento> {
     public void comprarEntrada(Entrada e) {
         if (EntradasDisponibles > 0) {
             EntradasVendidas.agregarInicio(e);
+            ListaClientes.agregarDato(e.getCliente()); 
             EntradasDisponibles--;
         } else {
             ColaEspera.encolar(e);
@@ -92,6 +95,12 @@ public class Evento implements Comparable<Evento> {
         }
 
         return res;
+    }
+
+    public String mostrarCola(){
+
+        return ListaClientes.mostrar();
+        
     }
 
     @Override
