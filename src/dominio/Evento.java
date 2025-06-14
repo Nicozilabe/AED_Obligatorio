@@ -13,8 +13,8 @@ import tads.ListaN;
  *
  * @author nicoz
  */
-public class Evento implements Comparable <Evento> {
-    
+public class Evento implements Comparable<Evento> {
+
     private String Codigo;
     private String Descripcion;
     private Integer AforoNecesario;
@@ -22,55 +22,68 @@ public class Evento implements Comparable <Evento> {
     private Sala Sala;
     private Integer EntradasDisponibles;
     public ListaN<Entrada> EntradasVendidas;
-    public Cola<Entrada> ColaEspera; 
+    public Cola<Entrada> ColaEspera;
 
-    //agregar comentarios
-    
-    public Evento(String codigo, String descripcion, int aforoNecesario, LocalDate fecha){
+    // agregar comentarios
+
+    public Evento(String codigo, String descripcion, int aforoNecesario, LocalDate fecha) {
         Codigo = codigo;
-        Descripcion =descripcion;
+        Descripcion = descripcion;
         AforoNecesario = aforoNecesario;
         Fecha = fecha;
         EntradasVendidas = new ListaN<>();
     }
-    public LocalDate getFecha(){
+
+    public LocalDate getFecha() {
         return Fecha;
     }
 
-    public void setEntradasDisponibles(Integer n){
+    public void setEntradasDisponibles(Integer n) {
         EntradasDisponibles = n;
 
     }
 
-    public void setSala(Sala s){
+    public void setSala(Sala s) {
         Sala = s;
     }
-    public Integer getAforo(){
+
+    public Integer getAforo() {
         return AforoNecesario;
     }
+
     @Override
     public int compareTo(Evento o) {
         return this.Codigo.compareTo(o.Codigo);
     }
 
-    public String toString(){
-        return Codigo + "-" + Descripcion + "-" + Sala.getNombre() + "-" + (Sala.getCapacidad() - EntradasVendidas.cantidadElementos())  + "-"  + EntradasVendidas.cantidadElementos();
+    public String toString() {
+        return Codigo + "-" + Descripcion + "-" + Sala.getNombre() + "-"
+                + (Sala.getCapacidad() - EntradasVendidas.cantidadElementos()) + "-"
+                + EntradasVendidas.cantidadElementos();
     }
 
-    public void comprarEntrada(Entrada e){
-        if(EntradasDisponibles > 0){
+    public void comprarEntrada(Entrada e) {
+        if (EntradasDisponibles > 0) {
             EntradasVendidas.agregarFinal(e);
             EntradasDisponibles--;
-        }else{
+        } else {
             ColaEspera.encolar(e);
         }
     }
 
+    public Integer getEntradasCantVendidas() {
+        return EntradasVendidas.cantidadElementos();
+    }
+
+    public Sala getSala() {
+        return Sala;
+    }
+
+
     @Override
-    public boolean equals(Object obj){
+    public boolean equals(Object obj) {
         Evento otro = (Evento) obj;
         return (otro.Codigo == this.Codigo);
     }
-
 
 }
