@@ -26,7 +26,7 @@ public class Evento implements Comparable<Evento> {
     public ListaN<Entrada> EntradasVendidas;
     public Cola<Entrada> ColaEspera;
     public ListaO<Cliente> ListaClientes;
-    public Double Calificacion;
+    public Double Puntaje;
     public ListaN<Calificacion> Calificaciones;
 
     // agregar comentarios
@@ -37,6 +37,11 @@ public class Evento implements Comparable<Evento> {
         AforoNecesario = aforoNecesario;
         Fecha = fecha;
         EntradasVendidas = new ListaN<>();
+        ColaEspera = new Cola<>();
+        ListaClientes = new ListaO<>();
+        EntradasDisponibles = aforoNecesario;
+        Puntaje = null;
+        Calificaciones = new ListaN<>();
     }
 
     public LocalDate getFecha() {
@@ -116,6 +121,22 @@ public class Evento implements Comparable<Evento> {
 
     }
 
+    public boolean calificarEvento(Calificacion c) {
+        if (Calificaciones.existeElemento(c)) {
+            return false;
+        }
+        
+        if (Puntaje == null) {
+            Puntaje = c.getPuntaje().doubleValue();
+        }else{
+            Puntaje = (Puntaje * Calificaciones.cantidadElementos() + c.getPuntaje()) / (Calificaciones.cantidadElementos()+1);
+        }
+        Calificaciones.agregarFinal(c);
+        return true;
+    }
+    public Double getPuntaje() {
+        return Puntaje;
+    }
     @Override
     public boolean equals(Object obj) {
         Evento otro = (Evento) obj;
