@@ -27,7 +27,6 @@ public class Evento implements Comparable<Evento> {
     public Cola<Entrada> ColaEspera;
     public ListaO<Cliente> ListaClientes;
 
-
     // agregar comentarios
 
     public Evento(String codigo, String descripcion, int aforoNecesario, LocalDate fecha) {
@@ -69,7 +68,7 @@ public class Evento implements Comparable<Evento> {
     public void comprarEntrada(Entrada e) {
         if (EntradasDisponibles > 0) {
             EntradasVendidas.agregarInicio(e);
-            ListaClientes.agregarDato(e.getCliente()); 
+            ListaClientes.agregarDato(e.getCliente());
             EntradasDisponibles--;
         } else {
             ColaEspera.encolar(e);
@@ -84,7 +83,7 @@ public class Evento implements Comparable<Evento> {
         return Sala;
     }
 
-    public String mostrarNUltclientes(int n){
+    public String mostrarNUltclientes(int n) {
         Nodo<Entrada> mostrar = EntradasVendidas.getNodoInicio();
         String res = "";
         while (mostrar != null && n > 0) {
@@ -97,10 +96,22 @@ public class Evento implements Comparable<Evento> {
         return res;
     }
 
-    public String mostrarCola(){
+    public void devolverEntrada(Entrada e) {
+        EntradasVendidas.eliminarElemento(e);
+        e.getCliente().devolverEntrada(e);
+        ListaClientes.eliminarElemento(e.getCliente());
+        EntradasDisponibles++;
+        if (!ColaEspera.esVacia()) {
+            Entrada entradaEspera = ColaEspera.desencolar();
+            comprarEntrada(entradaEspera);
+        }
+
+    }
+
+    public String mostrarCola() {
 
         return ListaClientes.mostrar();
-        
+
     }
 
     @Override
