@@ -1,5 +1,6 @@
 package sistemaAutogestion;
 
+import dominio.Calificacion;
 import dominio.Cliente;
 import dominio.Entrada;
 import dominio.Evento;
@@ -20,11 +21,15 @@ public class Sistema implements IObligatorio {
     private ListaO<Evento> Eventos;
     private ListaN<Sala> Salas;
     private Pila<Entrada> EntradasCompradas;
+    private ListaO<Evento> MejoresEventos;
 
     public Sistema() {
         Clientes = new ListaO<>();
         Eventos = new ListaO<>();
         Salas = new ListaN<>();
+        EntradasCompradas = new Pila<>();
+        MejoresEventos = new ListaO<>();
+
     }
 
     @Override
@@ -32,6 +37,8 @@ public class Sistema implements IObligatorio {
         Clientes = new ListaO<>();
         Eventos = new ListaO<>();
         Salas = new ListaN<>();
+        MejoresEventos = new ListaO<>();
+        EntradasCompradas = new Pila<>();
         return (Retorno.ok());
     }
 
@@ -201,7 +208,37 @@ public class Sistema implements IObligatorio {
 
     @Override
     public Retorno calificarEvento(String cedula, String codigoEvento, int puntaje, String comentario) {
-        return Retorno.noImplementada();
+        Cliente c = new Cliente(cedula, "");
+        Evento e = new Evento(codigoEvento, "", 0, LocalDate.now());
+        c = Clientes.obtenerElemento(c);
+        e = Eventos.obtenerElemento(e);
+        if (c == null) {
+            return Retorno.error1();
+        }
+        if (e == null) {
+            return Retorno.error2();
+        }
+        if (puntaje < 1 || puntaje > 10) {
+            return Retorno.error3();
+        }
+        Calificacion  calificacion = new Calificacion(puntaje, comentario, e, c);
+        if(e.calificarEvento(calificacion)){
+            if (MejoresEventos.cantidadElementos() == 0) {
+                MejoresEventos.agregarDato(e);
+            } else {
+                double puntajeMejor = MejoresEventos.getNodoInicio().getDato().getPuntaje();
+                if (e.getPuntaje() > puntajeMejor) {
+                    MejoresEventos.vaciar();
+                    MejoresEventos.agregarDato(e);
+                } else if (e.getPuntaje() == puntajeMejor) {
+                    MejoresEventos.agregarDato(e);
+                }
+            }
+            return Retorno.ok();
+        }else{
+            return Retorno.error4();
+        }
+        
     }
 
     @Override
@@ -292,7 +329,15 @@ public class Sistema implements IObligatorio {
 
     @Override
     public Retorno deshacerUtimasCompras(int n) {
-        return Retorno.noImplementada();
+        ListaO<Entrada> EntradasDevueltas = new ListaO<>();
+        while (n > 0 && !EntradasCompradas.estaVacia()) {
+            Entrada ultimaEntrada = EntradasCompradas.desapilar();
+            Evento evento = ultimaEntrada.getEvento();
+            evento.devolverEntrada(ultimaEntrada);
+            EntradasDevueltas.agregarDato(ultimaEntrada);
+            n--;
+        }
+        return Retorno.ok(EntradasDevueltas.mostrar());
     }
 
     @Override
