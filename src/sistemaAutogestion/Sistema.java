@@ -182,7 +182,21 @@ public class Sistema implements IObligatorio {
 
     @Override
     public Retorno devolverEntrada(String cedula, String codigoEvento) {
-        return Retorno.noImplementada();
+        Cliente c = new Cliente(cedula, "");
+        Evento e = new Evento(codigoEvento, "", 0, LocalDate.now());   
+
+        e = Eventos.obtenerElemento(e);
+        c = Clientes.obtenerElemento(c);
+        if( c == null){
+            return Retorno.error1();
+        }
+        if( e == null){
+            return Retorno.error2();
+        }
+        Entrada entrada = new Entrada(c, e);
+        e.devolverEntrada(entrada);
+        return Retorno.ok();
+        
     }
 
     @Override
