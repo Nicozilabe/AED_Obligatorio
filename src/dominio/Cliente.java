@@ -4,6 +4,8 @@
  */
 package dominio;
 
+import tads.ListaN;
+
 /**
  *
  * @author nicoz
@@ -11,6 +13,7 @@ package dominio;
 public class Cliente implements Comparable<Cliente> {
     private String Cedula;
     private String Nombre;
+    private ListaN<Entrada> EntradasCompradas;
 
     public Cliente(String cedula, String nombre){
         Cedula = cedula;
@@ -22,9 +25,21 @@ public class Cliente implements Comparable<Cliente> {
         return this.Cedula.compareTo(o.Cedula);
     }
 
+    public String MostrarEntradasCompradas(){
+        return EntradasCompradas.toString();
+    }
+
     public String toString(){
         return Cedula + "-" + Nombre;
     }
+
+    public void devolverEntrada(Entrada e){
+        Entrada puntero = EntradasCompradas.obtenerElemento(e);
+        if (puntero != null) {
+            puntero.devolverEntrada();
+        }
+    }
+
 
     @Override
     public boolean equals(Object obj){
