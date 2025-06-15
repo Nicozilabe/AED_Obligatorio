@@ -5,6 +5,7 @@
 package dominio;
 
 import tads.ListaN;
+import tads.Nodo;
 
 /**
  *
@@ -26,7 +27,19 @@ public class Cliente implements Comparable<Cliente> {
     }
 
     public String MostrarEntradasCompradas(){
-        return EntradasCompradas.toString();
+        String ret = "";
+        Nodo<Entrada> actual = EntradasCompradas.getNodoInicio();
+        while (actual != null) {
+            Entrada entrada = actual.getDato();
+            
+            if(actual.getSiguiente() == null){
+                ret += entrada.getEvento().getCodigo() + " - " + (entrada.esValida() ? "N" : "No D");
+            } else {
+                ret += entrada.getEvento().getCodigo() + " - " + (entrada.esValida() ? "N" : "No D") + "#";
+            }
+            actual = actual.getSiguiente();
+        }
+        return ret;
     }
 
     public String toString(){
