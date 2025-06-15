@@ -111,10 +111,15 @@ public class ListaN<T extends Comparable<T>> implements IListaN<T> {
         Nodo mostrar = inicio;
         String res = "";
         while (mostrar != null) {
-            res += mostrar.getDato() + "#";
+            if(mostrar.getSiguiente() == null){
+                res += mostrar.getDato();
+            }else{
+               res += mostrar.getDato() + "#"; 
+            }
+            
             mostrar = mostrar.getSiguiente();
         }
-
+        
         return res;
     }
 
