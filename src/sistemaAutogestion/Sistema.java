@@ -377,7 +377,7 @@ public class Sistema implements IObligatorio {
             return Retorno.error1();
         }
         String ret = "";
-        Nodo<Entrada> actual = EntradasCompradas.getNodoBot();
+        Nodo<Entrada> actual = EntradasCompradas.getNodoTope();
         int[] cantComprasPorDia = new int[32];
         while (actual != null) {
             Entrada e = actual.getDato();
