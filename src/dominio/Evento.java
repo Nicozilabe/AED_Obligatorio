@@ -95,7 +95,12 @@ public class Evento implements Comparable<Evento> {
         String res = "";
         while (mostrar != null && n > 0) {
             Entrada entrada = mostrar.getDato();
-            res += entrada.getCliente() + "#";
+
+            if(n == 1) {
+                res += entrada.getCliente().toString();
+            } else {
+                res += entrada.getCliente().toString() + "#";
+            }
             mostrar = mostrar.getSiguiente();
             n--;
         }
@@ -119,6 +124,9 @@ public class Evento implements Comparable<Evento> {
 
         return ListaClientes.mostrar();
 
+    }
+    public String getCodigo() {
+        return Codigo;
     }
 
     public boolean calificarEvento(Calificacion c) {
