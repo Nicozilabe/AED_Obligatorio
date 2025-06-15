@@ -24,8 +24,8 @@ public interface IPila<T extends Comparable<T>> {
     
     public int cantidadElementos();
 
-    public Nodo<T> getNodotop();
+    public Nodo<T> getNodoTope();
 
-    public Nodo<T> getNodoBot();
+    // public Nodo<T> getNodoBot();
     
 }

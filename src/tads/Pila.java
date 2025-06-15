@@ -48,7 +48,7 @@ public class Pila<T extends Comparable<T>> implements IPila<T> {
     }
 
     @Override
-    public Nodo<T> getNodotop() {
+    public Nodo<T> getNodoTope() {
         if(estaVacia()){
             throw new IllegalStateException("La pila esta vacia");
         } 
@@ -57,14 +57,14 @@ public class Pila<T extends Comparable<T>> implements IPila<T> {
     }
 
     //Solo se usa para mostrar
-    @Override
-    public Nodo<T> getNodoBot() {
-        if(estaVacia()){
-            throw new IllegalStateException("La pila esta vacia");
-        } 
+    // @Override
+    // public Nodo<T> getNodoBot() {
+    //     if(estaVacia()){
+    //         throw new IllegalStateException("La pila esta vacia");
+    //     } 
         
-        return bot;
-    }
+    //     return bot;
+    // }
 
     @Override
     public T desapilar() {
