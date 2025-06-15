@@ -11,10 +11,12 @@ package tads;
 public class Pila<T extends Comparable<T>> implements IPila<T> {
 
     private Nodo<T> tope;
+    private Nodo<T> bot;
     private int cantidadElementos;
     
     public Pila(){
         this.tope = null;
+        this.bot = null;
         cantidadElementos = 0;
     }
     
@@ -29,6 +31,9 @@ public class Pila<T extends Comparable<T>> implements IPila<T> {
         Nodo<T> nuevoNodo = new Nodo<T>(dato);
         nuevoNodo.setSiguiente(tope);
         tope = nuevoNodo;
+        if (bot == null) {
+            bot = nuevoNodo;
+        }
         cantidadElementos++;
 
     }
@@ -40,6 +45,25 @@ public class Pila<T extends Comparable<T>> implements IPila<T> {
         } 
         
         return (T) tope.getDato();
+    }
+
+    @Override
+    public Nodo<T> getNodotop() {
+        if(estaVacia()){
+            throw new IllegalStateException("La pila esta vacia");
+        } 
+        
+        return tope;
+    }
+
+    //Solo se usa para mostrar
+    @Override
+    public Nodo<T> getNodoBot() {
+        if(estaVacia()){
+            throw new IllegalStateException("La pila esta vacia");
+        } 
+        
+        return bot;
     }
 
     @Override
