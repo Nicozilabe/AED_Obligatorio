@@ -342,7 +342,18 @@ public class Sistema implements IObligatorio {
 
     @Override
     public Retorno eventoMejorPuntuado() {
-        return Retorno.noImplementada();
+        String ret = "";
+        for (int i = 0; i < MejoresEventos.cantidadElementos(); i++) {
+            Evento e = MejoresEventos.tomar_n(i + 1);
+
+            if (i == MejoresEventos.cantidadElementos() - 1) {
+                ret += e.getCodigo() + "-" + e.getPuntaje();
+            } else {
+                ret += e.getCodigo() + "-" + e.getPuntaje() + "#";
+            }
+            
+        }
+        return Retorno.ok(ret);
     }
 
     @Override
