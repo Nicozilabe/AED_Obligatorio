@@ -38,8 +38,11 @@ public class Entrada implements Comparable<Entrada>{
 
     @Override
     public int compareTo(Entrada o) {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'compareTo'");
+        int eventoComparison = this.evento.compareTo(o.evento);
+        if (eventoComparison != 0) {
+            return eventoComparison;
+        }
+        return this.cliente.compareTo(o.cliente);
     }
 
 
