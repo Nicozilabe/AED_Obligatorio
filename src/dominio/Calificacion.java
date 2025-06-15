@@ -8,7 +8,7 @@ package dominio;
  *
  * @author nicoz
  */
-public class Calificacion {
+public class Calificacion implements Comparable<Calificacion> {
     
     private Integer puntaje;
     private String comentario;
@@ -40,6 +40,12 @@ public class Calificacion {
     @Override
     public String toString() {
         return "Calificacion{" + "puntaje=" + puntaje + ", comentario='" + comentario + '\'' + ", evento=" + evento + '}';
+    }
+
+    @Override
+    public int compareTo(Calificacion o) {
+        // TODO Auto-generated method stub
+        throw new UnsupportedOperationException("Unimplemented method 'compareTo'");
     }
 
 }

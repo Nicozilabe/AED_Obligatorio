@@ -26,6 +26,8 @@ public class Evento implements Comparable<Evento> {
     public ListaN<Entrada> EntradasVendidas;
     public Cola<Entrada> ColaEspera;
     public ListaO<Cliente> ListaClientes;
+    public Double Calificacion;
+    public ListaN<Calificacion> Calificaciones;
 
     // agregar comentarios
 
