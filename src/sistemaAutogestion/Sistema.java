@@ -79,13 +79,13 @@ public class Sistema implements IObligatorio {
         }
 
         Evento e = new Evento(codigo, descripcion, aforoNecesario, fecha);
-        
+
         if (Eventos.existeElemento(e)) {
             return Retorno.error1();
         }
-        
+
         boolean fechaDisponible = false;
-        
+
         if (!Salas.esVacia()) {
             Nodo<Sala> actual = Salas.getNodoInicio();
             while (!fechaDisponible && actual != null) {
@@ -167,7 +167,7 @@ public class Sistema implements IObligatorio {
         Entrada entrada = new Entrada(c, e);
         e.comprarEntrada(entrada);
         return Retorno.ok();
- 
+
     }
 
     @Override
@@ -190,20 +190,20 @@ public class Sistema implements IObligatorio {
     @Override
     public Retorno devolverEntrada(String cedula, String codigoEvento) {
         Cliente c = new Cliente(cedula, "");
-        Evento e = new Evento(codigoEvento, "", 0, LocalDate.now());   
+        Evento e = new Evento(codigoEvento, "", 0, LocalDate.now());
 
         e = Eventos.obtenerElemento(e);
         c = Clientes.obtenerElemento(c);
-        if( c == null){
+        if (c == null) {
             return Retorno.error1();
         }
-        if( e == null){
+        if (e == null) {
             return Retorno.error2();
         }
         Entrada entrada = new Entrada(c, e);
         e.devolverEntrada(entrada);
         return Retorno.ok();
-        
+
     }
 
     @Override
@@ -221,8 +221,8 @@ public class Sistema implements IObligatorio {
         if (puntaje < 1 || puntaje > 10) {
             return Retorno.error3();
         }
-        Calificacion  calificacion = new Calificacion(puntaje, comentario, e, c);
-        if(e.calificarEvento(calificacion)){
+        Calificacion calificacion = new Calificacion(puntaje, comentario, e, c);
+        if (e.calificarEvento(calificacion)) {
             if (MejoresEventos.cantidadElementos() == 0) {
                 MejoresEventos.agregarDato(e);
             } else {
@@ -235,23 +235,23 @@ public class Sistema implements IObligatorio {
                 }
             }
             return Retorno.ok();
-        }else{
+        } else {
             return Retorno.error4();
         }
-        
+
     }
 
     @Override
     public Retorno listarSalas() {
-        String ret =Salas.mostrarInverso();
+        String ret = Salas.mostrarInverso();
         return Retorno.ok(ret);
     }
 
     @Override
     public Retorno listarEventos() {
-        String ret =Eventos.mostrar();
+        String ret = Eventos.mostrar();
         return Retorno.ok(ret);
-        
+
     }
 
     @Override
@@ -263,40 +263,40 @@ public class Sistema implements IObligatorio {
     @Override
     public Retorno esSalaOptima(String[][] vistaSala) {
         Integer cantColsOptima = 0;
-        for (int c = 0; c < vistaSala[0].length; c++) {   
-             Integer cantOcupadosConsecutivos = 0;
-             Integer cantLibres = 0;  
-             Integer cantOcupadosConsecutivosAux = 0;  
+        for (int c = 0; c < vistaSala[0].length; c++) {
+            Integer cantOcupadosConsecutivos = 0;
+            Integer cantLibres = 0;
+            Integer cantOcupadosConsecutivosAux = 0;
 
-            for (int f = 0; f < vistaSala.length; f++) {       
-                if(!(vistaSala[f][c].equals("#"))){
-                    if(vistaSala[f][c].equals("X")){
+            for (int f = 0; f < vistaSala.length; f++) {
+                if (!(vistaSala[f][c].equals("#"))) {
+                    if (vistaSala[f][c].equals("X")) {
                         cantLibres++;
-                        if(cantOcupadosConsecutivosAux > cantOcupadosConsecutivos){
+                        if (cantOcupadosConsecutivosAux > cantOcupadosConsecutivos) {
                             cantOcupadosConsecutivos = cantOcupadosConsecutivosAux;
-                            cantOcupadosConsecutivosAux= 0;
+                            cantOcupadosConsecutivosAux = 0;
                         }
                     }
-                    if(vistaSala[f][c].equals("O")){
+                    if (vistaSala[f][c].equals("O")) {
 
                         cantOcupadosConsecutivosAux++;
                     }
                 }
             }
-            if(cantOcupadosConsecutivosAux > cantOcupadosConsecutivos){
+            if (cantOcupadosConsecutivosAux > cantOcupadosConsecutivos) {
                 cantOcupadosConsecutivos = cantOcupadosConsecutivosAux;
             }
-            if(cantOcupadosConsecutivos > cantLibres){
+            if (cantOcupadosConsecutivos > cantLibres) {
                 cantColsOptima++;
             }
 
         }
-        if(cantColsOptima > 1){
+        if (cantColsOptima > 1) {
             return Retorno.ok("Es óptimo");
-        }else{
+        } else {
             return Retorno.ok("No es óptimo");
         }
-        
+
     }
 
     @Override
@@ -306,10 +306,10 @@ public class Sistema implements IObligatorio {
         if (e == null) {
             return Retorno.error1();
         }
-        if(n < 1){
+        if (n < 1) {
             return Retorno.error2();
         }
-        String ret  = e.mostrarNUltclientes(n);
+        String ret = e.mostrarNUltclientes(n);
         return Retorno.ok(ret);
     }
 
@@ -343,27 +343,59 @@ public class Sistema implements IObligatorio {
     @Override
     public Retorno eventoMejorPuntuado() {
         String ret = "";
-        for (int i = 0; i < MejoresEventos.cantidadElementos(); i++) {
-            Evento e = MejoresEventos.tomar_n(i + 1);
+        Nodo<Evento> actual = MejoresEventos.getNodoInicio();
+        while (actual != null) {
 
-            if (i == MejoresEventos.cantidadElementos() - 1) {
+            Evento e =  actual.getDato();
+            if (actual.getSiguiente() == null) {
                 ret += e.getCodigo() + "-" + e.getPuntaje();
             } else {
                 ret += e.getCodigo() + "-" + e.getPuntaje() + "#";
             }
-            
+
+            actual = actual.getSiguiente();
+
         }
         return Retorno.ok(ret);
     }
 
     @Override
     public Retorno comprasDeCliente(String cedula) {
-        return Retorno.noImplementada();
+        Cliente c = new Cliente(cedula, "");
+        c = Clientes.obtenerElemento(c);
+        if (c == null) {
+            return Retorno.error1();
+        }
+        String ret = c.MostrarEntradasCompradas();
+
+        return Retorno.ok(ret);
     }
 
     @Override
     public Retorno comprasXDia(int mes) {
-        return Retorno.noImplementada();
+        if( mes < 1 || mes > 12) {
+            return Retorno.error1();
+        }
+        String ret = "";
+        Nodo<Entrada> actual = EntradasCompradas.getNodoBot();
+        int[] cantComprasPorDia = new int[32];
+        while (actual != null) {
+            Entrada e = actual.getDato();
+            if (e.getFecha().getMonthValue() == mes) {
+                cantComprasPorDia[e.getFecha().getDayOfMonth()] += 1;
+            }
+            actual = actual.getSiguiente();
+        }
+        for (int i = 1; i < cantComprasPorDia.length; i++) {
+            if (cantComprasPorDia[i] > 0) {
+                if (ret == "") {
+                    ret += i + "-" + cantComprasPorDia[i];
+                } else {
+                    ret += "#" + i + "-" + cantComprasPorDia[i];
+                }
+            }
+        }
+        return Retorno.ok(ret);
     }
 
 }
