@@ -31,6 +31,9 @@ public class Entrada implements Comparable<Entrada>{
     }
 
 
+    public Evento getEvento() {
+        return evento;
+    }
 
 
     @Override
