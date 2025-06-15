@@ -4,6 +4,8 @@
  */
 package dominio;
 
+import java.time.LocalDate;
+
 /**
  *
  * @author nicoz
@@ -12,12 +14,14 @@ public class Entrada implements Comparable<Entrada>{
     private Cliente cliente;
     private Evento evento;
     private boolean esValida;
+    private LocalDate fecha;
 
     
     public Entrada(Cliente cliente, Evento evento) {
         this.cliente = cliente;
         this.evento = evento;
         this.esValida = true; 
+        this.fecha = LocalDate.now(); 
     }
 
 
@@ -35,6 +39,13 @@ public class Entrada implements Comparable<Entrada>{
         return evento;
     }
 
+    public boolean esValida() {
+        return esValida;
+    }
+
+    public LocalDate getFecha() {
+        return fecha;
+    }
 
     @Override
     public int compareTo(Entrada o) {
