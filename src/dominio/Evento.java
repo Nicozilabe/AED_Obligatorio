@@ -76,6 +76,7 @@ public class Evento implements Comparable<Evento> {
         if (EntradasDisponibles > 0) {
             EntradasVendidas.agregarInicio(e);
             ListaClientes.agregarDato(e.getCliente());
+            e.getCliente().comprarEntrada(e);
             EntradasDisponibles--;
         } else {
             ColaEspera.encolar(e);
