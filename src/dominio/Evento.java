@@ -96,7 +96,7 @@ public class Evento implements Comparable<Evento> {
         while (mostrar != null && n > 0) {
             Entrada entrada = mostrar.getDato();
 
-            if(n == 1) {
+            if(n == 1 || mostrar.getSiguiente() == null) {
                 res += entrada.getCliente().toString();
             } else {
                 res += entrada.getCliente().toString() + "#";
