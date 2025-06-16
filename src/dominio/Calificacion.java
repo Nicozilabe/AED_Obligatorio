@@ -41,7 +41,11 @@ public class Calificacion implements Comparable<Calificacion> {
     public String toString() {
         return "Calificacion{" + "puntaje=" + puntaje + ", comentario='" + comentario + '\'' + ", evento=" + evento + '}';
     }
-
+    @Override
+    public boolean equals(Object obj) {
+        Calificacion otro = (Calificacion) obj;
+        return (otro.cliente == this.cliente && otro.evento == this.evento);
+    }
     @Override
     public int compareTo(Calificacion o) {
         // TODO Auto-generated method stub
