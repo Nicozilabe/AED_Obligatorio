@@ -327,9 +327,11 @@ public class IObligatorioTest {
         assertEquals(Retorno.ok().resultado, r.resultado);
         r = miSistema.comprarEntrada("22233333", "CUC25");
         assertEquals(Retorno.ok().resultado, r.resultado);
+        r = miSistema.devolverEntrada("22233333", "CUC25");
+        assertEquals(Retorno.ok().resultado, r.resultado);
         r = miSistema.comprasDeCliente("22233333");
         assertEquals(Retorno.Resultado.OK, r.resultado);
-        assertEquals("TKUFA-N#CUC25-N", r.valorString);
+        assertEquals("TKUFA-N#CUC25-D", r.valorString);
     }
 
     @Test
