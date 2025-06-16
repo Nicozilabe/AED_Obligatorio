@@ -22,6 +22,11 @@ public class Cliente implements Comparable<Cliente> {
         EntradasCompradas = new ListaN<>();
     }
 
+    public void comprarEntrada(Entrada e){
+        EntradasCompradas.agregarFinal(e);
+    }
+
+
     @Override
     public int compareTo(Cliente o) {
         return this.Cedula.compareTo(o.Cedula);
@@ -34,9 +39,9 @@ public class Cliente implements Comparable<Cliente> {
             Entrada entrada = actual.getDato();
             
             if(actual.getSiguiente() == null){
-                ret += entrada.getEvento().getCodigo() + " - " + (entrada.esValida() ? "N" : "No D");
+                ret += entrada.getEvento().getCodigo() + "-" + (entrada.esValida() ? "N" : "No D");
             } else {
-                ret += entrada.getEvento().getCodigo() + " - " + (entrada.esValida() ? "N" : "No D") + "#";
+                ret += entrada.getEvento().getCodigo() + "-" + (entrada.esValida() ? "N" : "No D") + "#";
             }
             actual = actual.getSiguiente();
         }
