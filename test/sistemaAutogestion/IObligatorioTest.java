@@ -251,4 +251,35 @@ public class IObligatorioTest {
     
     }
     
+    @Test
+    public void testCalificarEvento(){
+    
+        //prueba error1 
+        Retorno r = miSistema.registrarSala("Sa 1",1);
+        assertEquals(Retorno.ok().resultado, r.resultado);
+        r = miSistema.registrarEvento("cc", "cc", 1, LocalDate.of(1995, 5, 7));
+        assertEquals(Retorno.ok().resultado, r.resultado);
+        r = miSistema.registrarCliente("53752389", "Pepe");
+        assertEquals(Retorno.ok().resultado, r.resultado);
+        r = miSistema.comprarEntrada("53752389", "cc");
+        assertEquals(Retorno.ok().resultado, r.resultado);
+        r = miSistema.calificarEvento("00000000", "cc", 4, "Comentario");
+        assertEquals(Retorno.error1().resultado, r.resultado);
+        //prueba error2
+        r = miSistema.calificarEvento("53752389", "zz", 4, "Comentario");
+        assertEquals(Retorno.error2().resultado, r.resultado);
+        //prueba error3
+        r = miSistema.calificarEvento("53752389", "cc", 40, "Comentario");
+        assertEquals(Retorno.error3().resultado, r.resultado);
+        r = miSistema.calificarEvento("53752389", "cc", 0, "Comentario");
+        assertEquals(Retorno.error3().resultado, r.resultado);
+        //prueba ok
+        r = miSistema.calificarEvento("53752389", "cc", 4, "Comentario");
+        assertEquals(Retorno.ok().resultado, r.resultado);
+        //prueba error 4
+        r = miSistema.calificarEvento("53752389", "cc", 4, "Comentario");
+        assertEquals(Retorno.error4().resultado, r.resultado);
+    
+    }
+    
 }
