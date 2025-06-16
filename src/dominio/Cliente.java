@@ -39,9 +39,9 @@ public class Cliente implements Comparable<Cliente> {
             Entrada entrada = actual.getDato();
             
             if(actual.getSiguiente() == null){
-                ret += entrada.getEvento().getCodigo() + "-" + (entrada.esValida() ? "N" : "No D");
+                ret += entrada.getEvento().getCodigo() + "-" + (entrada.esValida() ? "N" : "D");
             } else {
-                ret += entrada.getEvento().getCodigo() + "-" + (entrada.esValida() ? "N" : "No D") + "#";
+                ret += entrada.getEvento().getCodigo() + "-" + (entrada.esValida() ? "N" : "D") + "#";
             }
             actual = actual.getSiguiente();
         }
