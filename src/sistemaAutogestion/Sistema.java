@@ -227,13 +227,28 @@ public class Sistema implements IObligatorio {
             if (MejoresEventos.cantidadElementos() == 0) {
                 MejoresEventos.agregarDato(e);
             } else {
-                double puntajeMejor = MejoresEventos.getNodoInicio().getDato().getPuntaje();
-                if (e.getPuntaje() > puntajeMejor) {
-                    MejoresEventos.vaciar();
-                    MejoresEventos.agregarDato(e);
-                } else if (e.getPuntaje() == puntajeMejor) {
-                    MejoresEventos.agregarDato(e);
+                Nodo<Evento> actual = MejoresEventos.getNodoInicio();
+                boolean agregado = false;
+                while (actual != null && !agregado) {
+                    Evento a = actual.getDato();
+                    if(a.getPuntaje() < e.getPuntaje()){
+                        MejoresEventos.vaciar();
+                        MejoresEventos.agregarDato(e);
+                        agregado = true;
+                    }
+                    if (a.getPuntaje().equals(e.getPuntaje()) && !a.equals(e)) {
+                        if(!MejoresEventos.existeElemento(e)) {
+                            MejoresEventos.agregarDato(e);
+                        }
+                        agregado = true;
+                    }
+                    if (a.getPuntaje() > e.getPuntaje()) {
+                        MejoresEventos.eliminarElemento(e);
+                        agregado = true;
+                    }
+                    actual = actual.getSiguiente();
                 }
+                
             }
             return Retorno.ok();
         } else {
