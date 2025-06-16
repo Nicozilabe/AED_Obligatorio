@@ -202,4 +202,30 @@ public class IObligatorioTest {
         
     }
 
+    
+    @Test
+    public void testEliminarEvento(){
+        //prueba ok
+        Retorno r = miSistema.registrarSala("Sa 1",1);
+        assertEquals(Retorno.ok().resultado, r.resultado);
+        r = miSistema.registrarEvento("cc", "cc", 1, LocalDate.of(1995, 5, 7));
+        assertEquals(Retorno.ok().resultado, r.resultado);
+        r = miSistema.eliminarEvento("cc");
+        assertEquals(Retorno.ok().resultado, r.resultado);
+        
+        //Prueba error 1
+        r = miSistema.eliminarEvento("cc");
+        assertEquals(Retorno.error1().resultado, r.resultado);
+        
+        //Prueba error 2
+        r = miSistema.registrarEvento("cc", "cc", 1, LocalDate.of(1995, 5, 7));
+        assertEquals(Retorno.ok().resultado, r.resultado);
+        r = miSistema.registrarCliente("53752389", "Pepe");
+        assertEquals(Retorno.ok().resultado, r.resultado);
+        r = miSistema.comprarEntrada("53752389", "cc");
+        assertEquals(Retorno.ok().resultado, r.resultado);
+        r = miSistema.eliminarEvento("cc");
+        assertEquals(Retorno.error2().resultado, r.resultado);
+        
+    }
 }
