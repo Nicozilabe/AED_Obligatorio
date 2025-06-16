@@ -3,6 +3,7 @@ package sistemaAutogestion;
 import dominio.Calificacion;
 import dominio.Cliente;
 import dominio.Entrada;
+import dominio.EstadisticaDia;
 import dominio.Evento;
 import dominio.Sala;
 import java.time.LocalDate;
@@ -346,7 +347,7 @@ public class Sistema implements IObligatorio {
         Nodo<Evento> actual = MejoresEventos.getNodoInicio();
         while (actual != null) {
 
-            Evento e =  actual.getDato();
+            Evento e = actual.getDato();
             if (actual.getSiguiente() == null) {
                 ret += e.getCodigo() + "-" + e.getPuntaje();
             } else {
@@ -371,29 +372,65 @@ public class Sistema implements IObligatorio {
         return Retorno.ok(ret);
     }
 
+    // @Override
+    // public Retorno comprasXDia(int mes) {
+    // if( mes < 1 || mes > 12) {
+    // return Retorno.error1();
+    // }
+    // String ret = "";
+    // Nodo<Entrada> actual = EntradasCompradas.getNodoTope();
+    // int[] cantComprasPorDia = new int[32];
+    // while (actual != null) {
+    // Entrada e = actual.getDato();
+    // if (e.getFecha().getMonthValue() == mes) {
+    // cantComprasPorDia[e.getFecha().getDayOfMonth()] += 1;
+    // }
+    // actual = actual.getSiguiente();
+    // }
+    // for (int i = 1; i < cantComprasPorDia.length; i++) {
+    // if (cantComprasPorDia[i] > 0) {
+    // if (ret == "") {
+    // ret += i + "-" + cantComprasPorDia[i];
+    // } else {
+    // ret += "#" + i + "-" + cantComprasPorDia[i];
+    // }
+    // }
+    // }
+    // return Retorno.ok(ret);
+    // }
+
     @Override
     public Retorno comprasXDia(int mes) {
-        if( mes < 1 || mes > 12) {
+        if (mes < 1 || mes > 12) {
             return Retorno.error1();
         }
         String ret = "";
-        Nodo<Entrada> actual = EntradasCompradas.getNodoTope();
-        int[] cantComprasPorDia = new int[32];
-        while (actual != null) {
-            Entrada e = actual.getDato();
+        Pila<Entrada> nPila = EntradasCompradas.copiarPila();
+        Entrada e= nPila.desapilar();
+        ListaO<EstadisticaDia> estadisticas = new ListaO<>();
+        while (e != null) {
+            
             if (e.getFecha().getMonthValue() == mes) {
-                cantComprasPorDia[e.getFecha().getDayOfMonth()] += 1;
+                EstadisticaDia estadistica = new EstadisticaDia(e.getFecha().getDayOfMonth(), 1);
+                EstadisticaDia estadisticaExistente = estadisticas.obtenerElemento(estadistica);
+                if (estadisticaExistente != null) {
+                    estadisticaExistente.setCantidad(estadisticaExistente.getCant() + 1);
+                } else {
+                    estadisticas.agregarDato(estadistica);
+                }
+                
+            }
+            e = nPila.desapilar();
+        }
+        Nodo<EstadisticaDia> actual = estadisticas.getNodoInicio();
+        while (actual != null) {
+            EstadisticaDia estadistica = actual.getDato();
+            if (ret.equals("")) {
+                ret += estadistica.toString();
+            } else {
+                ret += "#" + estadistica.toString();
             }
             actual = actual.getSiguiente();
-        }
-        for (int i = 1; i < cantComprasPorDia.length; i++) {
-            if (cantComprasPorDia[i] > 0) {
-                if (ret == "") {
-                    ret += i + "-" + cantComprasPorDia[i];
-                } else {
-                    ret += "#" + i + "-" + cantComprasPorDia[i];
-                }
-            }
         }
         return Retorno.ok(ret);
     }
