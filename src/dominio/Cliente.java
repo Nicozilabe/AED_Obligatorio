@@ -19,6 +19,7 @@ public class Cliente implements Comparable<Cliente> {
     public Cliente(String cedula, String nombre){
         Cedula = cedula;
         Nombre = nombre;
+        EntradasCompradas = new ListaN<>();
     }
 
     @Override
