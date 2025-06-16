@@ -316,7 +316,7 @@ public class IObligatorioTest {
         
         Retorno  r = miSistema.registrarSala("Sa 1", 11);
         assertEquals(Retorno.ok().resultado, r.resultado);
-         r = miSistema.registrarCliente("22233333", "Lucrecia");
+        r = miSistema.registrarCliente("22233333", "Lucrecia");
         assertEquals(Retorno.ok().resultado, r.resultado);
         r = miSistema.registrarEvento("CUC25", "Comidaverde", 10, LocalDate.of(1951, 3, 11));
         assertEquals(Retorno.ok().resultado, r.resultado);
@@ -344,9 +344,43 @@ public class IObligatorioTest {
         r = miSistema.registrarEvento("ARUFA", "Marina", 10, LocalDate.of(1990, 9, 12));
         assertEquals(Retorno.ok().resultado, r.resultado);
         
+        
+        r = miSistema.registrarCliente("11111111", "Pepe");
+        assertEquals(Retorno.ok().resultado, r.resultado);
+        r = miSistema.registrarCliente("22222222", "Lucrecia");
+        assertEquals(Retorno.ok().resultado, r.resultado);
+        r = miSistema.comprarEntrada("11111111", "TKUFA");
+        assertEquals(Retorno.ok().resultado, r.resultado);
+        r = miSistema.comprarEntrada("11111111", "CUC25");
+        assertEquals(Retorno.ok().resultado, r.resultado);
+        r = miSistema.comprarEntrada("11111111", "ARUFA");
+        assertEquals(Retorno.ok().resultado, r.resultado);
+        r = miSistema.comprarEntrada("22222222", "TKUFA");
+        assertEquals(Retorno.ok().resultado, r.resultado);
+        r = miSistema.comprarEntrada("22222222", "CUC25");
+        assertEquals(Retorno.ok().resultado, r.resultado);
+        r = miSistema.comprarEntrada("22222222", "ARUFA");
+        assertEquals(Retorno.ok().resultado, r.resultado);
+        
+        r = miSistema.calificarEvento("11111111", "TKUFA", 2, "P");
+        assertEquals(Retorno.ok().resultado, r.resultado);
+        r = miSistema.calificarEvento("11111111", "CUC25", 2, "P");
+        assertEquals(Retorno.ok().resultado, r.resultado);
+        r = miSistema.calificarEvento("11111111", "ARUFA", 2, "P");
+        assertEquals(Retorno.ok().resultado, r.resultado);
+        
+        r = miSistema.calificarEvento("22222222", "TKUFA", 2, "P");
+        assertEquals(Retorno.ok().resultado, r.resultado);
+        r = miSistema.calificarEvento("22222222", "CUC25", 2, "P");
+        assertEquals(Retorno.ok().resultado, r.resultado);
+        r = miSistema.calificarEvento("22222222", "ARUFA", 1, "P");
+        assertEquals(Retorno.ok().resultado, r.resultado);
+        
+        
+        
         r = miSistema.eventoMejorPuntuado();
         assertEquals(Retorno.ok().resultado, r.resultado);
-        assertEquals("TKUFA-9#CUC25-9#ARUFA-5", r.valorString);
+        assertEquals("CUC25-2.0#TKUFA-2.0", r.valorString);
     }
 
 }
