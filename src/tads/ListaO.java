@@ -58,7 +58,7 @@ public class ListaO<T extends Comparable<T>> implements IListaO<T>{
                 inicio = inicio.getSiguiente();
             } else {
                 Nodo actual = inicio;
-                while (actual.getSiguiente() != null && actual.getSiguiente().getDato().equals(x)) {
+                while (actual.getSiguiente() != null && !actual.getSiguiente().getDato().equals(x)) {
                     actual = actual.getSiguiente();
                 }
                 if (actual.getSiguiente() != null) {
