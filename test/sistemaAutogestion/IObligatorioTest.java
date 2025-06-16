@@ -228,4 +228,27 @@ public class IObligatorioTest {
         assertEquals(Retorno.error2().resultado, r.resultado);
         
     }
+    
+    @Test
+    public void testDevolverEntrada(){
+    
+    //prueba ok
+        Retorno r = miSistema.registrarSala("Sa 1",1);
+        assertEquals(Retorno.ok().resultado, r.resultado);
+        r = miSistema.registrarEvento("cc", "cc", 1, LocalDate.of(1995, 5, 7));
+        assertEquals(Retorno.ok().resultado, r.resultado);
+        r = miSistema.registrarCliente("53752389", "Pepe");
+        assertEquals(Retorno.ok().resultado, r.resultado);
+        r = miSistema.comprarEntrada("53752389", "cc");
+        assertEquals(Retorno.ok().resultado, r.resultado);
+        r= miSistema.devolverEntrada("53752389", "cc");
+        //prueba error1
+        r = miSistema.devolverEntrada("00000000", "cc");
+        assertEquals(Retorno.error1().resultado, r.resultado);
+        //prueba error2
+        r = miSistema.devolverEntrada("53752389", "zz");
+        assertEquals(Retorno.error2().resultado, r.resultado);
+    
+    }
+    
 }
