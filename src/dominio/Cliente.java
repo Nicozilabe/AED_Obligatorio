@@ -48,6 +48,10 @@ public class Cliente implements Comparable<Cliente> {
         return ret;
     }
 
+    public String getCedula() {
+        return Cedula;
+    }
+
     public String toString(){
         return Cedula + "-" + Nombre;
     }
