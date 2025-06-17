@@ -121,9 +121,9 @@ public class Evento implements Comparable<Evento> {
 
     }
 
-    public String mostrarCola() {
+    public Cola<Entrada> getColaEspera() {
 
-        return ListaClientes.mostrar();
+        return ColaEspera;
 
     }
     public String getCodigo() {

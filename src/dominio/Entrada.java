@@ -59,7 +59,7 @@ public class Entrada implements Comparable<Entrada>{
 
     @Override
     public String toString() {
-        return evento.toString() + " - " + cliente.toString();
+        return evento.getCodigo() + "-" + cliente.getCedula();
     }
 
 

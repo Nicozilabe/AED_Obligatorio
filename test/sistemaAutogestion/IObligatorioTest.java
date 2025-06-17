@@ -312,6 +312,44 @@ public class IObligatorioTest {
     }
 
     @Test
+    public void testColaEvento(){
+    
+        
+        Retorno r = miSistema.registrarSala("Sa 1", 1);
+        assertEquals(Retorno.ok().resultado, r.resultado);
+        r = miSistema.registrarEvento("cc", "cc", 1, LocalDate.of(1995, 5, 7));
+        assertEquals(Retorno.ok().resultado, r.resultado);
+        r = miSistema.registrarEvento("aa", "aa", 1, LocalDate.of(1995, 4, 7));
+        assertEquals(Retorno.ok().resultado, r.resultado);
+        //prueba ok
+        r = miSistema.registrarCliente("11111111", "Pepe");
+        assertEquals(Retorno.ok().resultado, r.resultado);
+        r = miSistema.registrarCliente("22222222", "Pepe");
+        assertEquals(Retorno.ok().resultado, r.resultado);
+        r = miSistema.registrarCliente("33333333", "Pepe");
+        assertEquals(Retorno.ok().resultado, r.resultado);
+        r = miSistema.comprarEntrada("11111111", "cc");
+        assertEquals(Retorno.ok().resultado, r.resultado);
+        r = miSistema.comprarEntrada("22222222", "cc");
+        assertEquals(Retorno.ok().resultado, r.resultado);
+        r = miSistema.comprarEntrada("33333333", "cc");
+        assertEquals(Retorno.ok().resultado, r.resultado);
+        r = miSistema.comprarEntrada("22222222", "aa");
+        assertEquals(Retorno.ok().resultado, r.resultado);
+        r = miSistema.comprarEntrada("33333333", "aa");
+        assertEquals(Retorno.ok().resultado, r.resultado);
+        
+        r = miSistema.listarEsperaEvento();
+        assertEquals(Retorno.Resultado.OK, r.resultado);
+        assertEquals("aa-33333333#cc-22222222#cc-33333333", r.valorString);
+        
+
+    
+    }
+    
+    
+    
+    @Test
     public void testComprasDeCliente() {
         
         Retorno  r = miSistema.registrarSala("Sa 1", 11);

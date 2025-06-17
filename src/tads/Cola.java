@@ -63,6 +63,15 @@ public class Cola<T extends Comparable<T>> implements ICola<T> {
         return inicio.getDato(); 
     }
 
+
+    @Override
+    public Nodo<T> getNodoFrente() {
+        if (esVacia()) {
+            return null; 
+        }
+        return inicio; 
+    }
+
     @Override
     public void vaciar() {
         inicio = null; 

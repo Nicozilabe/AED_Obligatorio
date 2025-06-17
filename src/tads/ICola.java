@@ -17,6 +17,6 @@ public interface ICola<T extends Comparable<T>> {
     public void vaciar();
     public int cantidadElementos();
     public void mostrar();
-
+    public Nodo<T> getNodoFrente();
 
 }

@@ -231,13 +231,13 @@ public class Sistema implements IObligatorio {
                 boolean agregado = false;
                 while (actual != null && !agregado) {
                     Evento a = actual.getDato();
-                    if(a.getPuntaje() < e.getPuntaje()){
+                    if (a.getPuntaje() < e.getPuntaje()) {
                         MejoresEventos.vaciar();
                         MejoresEventos.agregarDato(e);
                         agregado = true;
                     }
                     if (a.getPuntaje().equals(e.getPuntaje()) && !a.equals(e)) {
-                        if(!MejoresEventos.existeElemento(e)) {
+                        if (!MejoresEventos.existeElemento(e)) {
                             MejoresEventos.agregarDato(e);
                         }
                         agregado = true;
@@ -248,7 +248,7 @@ public class Sistema implements IObligatorio {
                     }
                     actual = actual.getSiguiente();
                 }
-                
+
             }
             return Retorno.ok();
         } else {
@@ -331,16 +331,25 @@ public class Sistema implements IObligatorio {
 
     @Override
     public Retorno listarEsperaEvento() {
-        String ret = "";
+
+        ListaO<Entrada> EntradasEspera = new ListaO<>();
         if (!Eventos.esVacia()) {
             Nodo<Evento> actual = Eventos.getNodoInicio();
             while (actual != null) {
-                Evento e = actual.getDato();
-                ret += e.mostrarCola();
+                Nodo<Entrada> nodo = actual.getDato().getColaEspera().getNodoFrente();
+
+                while (nodo != null) {
+                    Entrada entrada = nodo.getDato();
+                    if (entrada != null) {
+                        EntradasEspera.agregarDato(entrada);
+                    }
+                    nodo = nodo.getSiguiente();
+                }
                 actual = actual.getSiguiente();
+
             }
         }
-        return Retorno.ok(ret);
+        return Retorno.ok(EntradasEspera.mostrar());
     }
 
     @Override
@@ -421,10 +430,10 @@ public class Sistema implements IObligatorio {
         }
         String ret = "";
         Pila<Entrada> nPila = EntradasCompradas.copiarPila();
-        Entrada e= nPila.desapilar();
+        Entrada e = nPila.desapilar();
         ListaO<EstadisticaDia> estadisticas = new ListaO<>();
         while (e != null) {
-            
+
             if (e.getFecha().getMonthValue() == mes) {
                 EstadisticaDia estadistica = new EstadisticaDia(e.getFecha().getDayOfMonth(), 1);
                 EstadisticaDia estadisticaExistente = estadisticas.obtenerElemento(estadistica);
@@ -433,7 +442,7 @@ public class Sistema implements IObligatorio {
                 } else {
                     estadisticas.agregarDato(estadistica);
                 }
-                
+
             }
             e = nPila.desapilar();
         }
