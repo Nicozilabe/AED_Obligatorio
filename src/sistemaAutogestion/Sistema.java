@@ -167,6 +167,7 @@ public class Sistema implements IObligatorio {
         }
         Entrada entrada = new Entrada(c, e);
         e.comprarEntrada(entrada);
+        EntradasCompradas.apilar(entrada);
         return Retorno.ok();
 
     }
@@ -432,19 +433,24 @@ public class Sistema implements IObligatorio {
         Pila<Entrada> nPila = EntradasCompradas.copiarPila();
         Entrada e = nPila.desapilar();
         ListaO<EstadisticaDia> estadisticas = new ListaO<>();
-        while (e != null) {
+        while (e != null && nPila.cantidadElementos() >= 0) {
 
             if (e.getFecha().getMonthValue() == mes) {
                 EstadisticaDia estadistica = new EstadisticaDia(e.getFecha().getDayOfMonth(), 1);
                 EstadisticaDia estadisticaExistente = estadisticas.obtenerElemento(estadistica);
                 if (estadisticaExistente != null) {
-                    estadisticaExistente.setCantidad(estadisticaExistente.getCant() + 1);
+                    estadisticaExistente.aumentarCantidad(1);
                 } else {
                     estadisticas.agregarDato(estadistica);
                 }
 
             }
+            
+            if (nPila.cantidadElementos() == 0) {
+                e = null;
+            } else {
             e = nPila.desapilar();
+            }
         }
         Nodo<EstadisticaDia> actual = estadisticas.getNodoInicio();
         while (actual != null) {
