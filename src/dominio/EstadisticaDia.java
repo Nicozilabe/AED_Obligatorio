@@ -27,6 +27,9 @@ public class EstadisticaDia implements Comparable<EstadisticaDia> {
        this.Cant = cant;
    }
 
+   public void aumentarCantidad(int cant) {
+       this.Cant += cant;
+   }
     @Override
     public String toString() {
         return  Dia + "-" + Cant;
