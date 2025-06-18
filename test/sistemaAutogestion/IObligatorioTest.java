@@ -488,6 +488,6 @@ public class IObligatorioTest {
         
         r = miSistema.comprasXDia(6);
         assertEquals(Retorno.ok().resultado, r.resultado);
-        assertEquals("17-5", r.valorString);
+        assertEquals(LocalDate.now().getDayOfMonth()+"-5", r.valorString);
     }
 }
